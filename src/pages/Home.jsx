@@ -1,22 +1,55 @@
-import React from 'react';
+import { useEffect, useState} from 'react';
+import { supabase } from './services/supabaseClient'; // Adjust the import path as necessary
 
-const Home = () => {
+export  default function Home() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+        const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            if (error) {
+                console.error('Error fetching products:', error);
+            } else {
+                setProducts(data);
+            }
+    };
+
     return (
-        <main style={{ padding: '2rem', maxWidth: 800, margin: '0 auto' }}>
-            <h1>Welcome to Kicka</h1>
-            <p>
-                Kicka is your platform for discovering and sharing amazing projects. Explore trending ideas, connect with creators, and kickstart your next adventure!
-            </p>
-            <section style={{ marginTop: '2rem' }}>
-                <h2>Get Started</h2>
-                <ul>
-                    <li>Browse featured projects</li>
-                    <li>Create your own project</li>
-                    <li>Join the Kicka community</li>
-                </ul>
+        <div className='p-6'>
+            <section className='text-center my-8'>
+                <h1 className='text-4xl font-bold'>Welcome to Kicka</h1>
+                <p className='text-gray-600'>Shop anything, anytime, anywhere.</p>
             </section>
-        </main>
+
+            <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+                {products.map(item => (
+                    <div key={item.id} 
+                    className='card shadow-xl'>
+
+                        <figure>
+                        <img src={item.image_url} 
+                        alt={item.name} 
+                        className='w-full h-48 object-cover mb-4 rounded' />
+                        </figure>
+
+                        <div className='card-body'>
+                        <h2 className='card-title'>{item.name}</h2>
+                        <p className='text-gray-500'>{item.description}</p>
+
+                        <div className='card-actions justify-between mt-2'>
+                        <span className='text-lg font-bold text-primary'>KES {item.price}</span>
+
+                        <button className='btn btn-primary'>Add to Cart</button>
+                    </div>
+                    </div>
+                    </div>
+                ))}
+            </section>
+        </div>
     );
 };
-
-export default Home;

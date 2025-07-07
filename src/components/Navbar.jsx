@@ -2,15 +2,16 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-lg font-bold">
+    <nav className="navbar bg-base-100 shadow-sm px-6">
+      <div className="flex-1">
+        <Link to="/" className="text-primary text-2xl font-bold">
           Kicka
         </Link>
-        <div className="space-x-4">
-          <Link to="/" className="text-gray-300 hover:text-white">Home</Link>
-          <Link to="/about" className="text-gray-300 hover:text-white">About</Link>
-          <Link to="/contact" className="text-gray-300 hover:text-white">Contact</Link>
+        <div className="flex gap-4">
+          <Link to="/" className="btn btn-ghost btn-primary">Home</Link>
+          <Link to="/shop" className="btn btn-ghost btn-primary">Shop</Link>
+          <Link to="/collections" className="btn btn-ghost btn-primary">Collections</Link>
+          <Link to="/auth" className="btn btn-outline btn-secondary">Login</Link>
         </div>
       </div>
     </nav>
