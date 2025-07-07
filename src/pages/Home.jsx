@@ -1,5 +1,5 @@
 import { useEffect, useState} from 'react';
-import { supabase } from './services/supabaseClient'; // Adjust the import path as necessary
+import { supabase } from '../services/supabaseClient'; 
 
 export  default function Home() {
     const [products, setProducts] = useState([]);
